@@ -14,9 +14,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PaytmConnection {
-    public void connection(String API_URL){
+    private static final String API_URL = "https://travel.paytm.com/api/flights/v3/search?origin=BLR&destination=DEL&accept=combination&adults=1&children=0&infants=0&class=E&isH5=true&enable=%7B%22handBaggageFare%22%3Atrue%2C%22paxWiseConvFee%22%3Atrue%2C%22minirules%22%3Atrue%7D&client=web&departureDate=";
+            String date = "20241005" ;
+            String endpoint = "&userType=null&cohort=null&productFlow=null";
+
+    public List<PaytmData> connection(String date){
+        String newDate = removeSlashFromDate(date);
+
+        String url = API_URL+newDate+endpoint;
+        List<PaytmData> paytmDataList = new ArrayList<>();
+
         try {
-            URL urlObj = new URL(API_URL);
+            URL urlObj = new URL(url);
             HttpsURLConnection connection = (HttpsURLConnection) urlObj.openConnection();
             connection.setRequestMethod("GET");
 
@@ -30,7 +39,7 @@ public class PaytmConnection {
                 ObjectMapper objectMapper = new ObjectMapper();
                 FlightResponse flightResponse = objectMapper.readValue(sb.toString(),new TypeReference<FlightResponse>(){});
                 List<Flight> flights = flightResponse.getBody().getOnwardflights().getFlights();
-                List<PaytmData> paytmDataList = new ArrayList<>();
+
                 for (Flight flight : flights){
                     PaytmData paytmData = new PaytmData();
                     Hop hop = flight.getHops().get(0);
@@ -43,10 +52,10 @@ public class PaytmConnection {
                         paytmDataList.add(paytmData);
                     }
                 }
-                System.out.println("flightOperator      ;    flightNumber   ;     pricePaytm ");
-                for (PaytmData paytmData : paytmDataList){
-                    System.out.println(paytmData);
-                }
+//                System.out.println("flightOperator      ;    flightNumber   ;     pricePaytm ");
+//                for (PaytmData paytmData : paytmDataList){
+//                    System.out.println(paytmData);
+//                }
 
             } else {
                 System.out.println("Failed to fetch data. Status code: " + responseCode);
@@ -55,6 +64,19 @@ public class PaytmConnection {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return paytmDataList;
+    }
+
+    private String removeSlashFromDate(String date) {
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<date.length(); i++){
+            char ch = date.charAt(i);
+            if(ch!='/'){
+                sb.append(ch);
+            }
+        }
+        return sb.toString();
     }
 
 }
