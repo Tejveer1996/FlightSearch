@@ -28,6 +28,7 @@ public class PaytmConnection {
             URL urlObj = new URL(url);
             HttpsURLConnection connection = (HttpsURLConnection) urlObj.openConnection();
             connection.setRequestMethod("GET");
+            connection.connect();
 
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpsURLConnection.HTTP_OK) {

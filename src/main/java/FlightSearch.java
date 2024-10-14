@@ -8,7 +8,7 @@ import PrintCSVFormat.CSVFormat;
 import java.util.List;
 import java.util.Scanner;
 
-public class PaytmFlightApiScraper {
+public class FlightSearch {
 
     public static void main(String[] args) {
         Scanner sc= new Scanner(System.in);

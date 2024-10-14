@@ -26,23 +26,9 @@ public class ClearTripConnection {
                 URL urlObj = new URL(url);
                 HttpsURLConnection connection = (HttpsURLConnection) urlObj.openConnection();
                 connection.setRequestMethod("GET");
+
             // Set headers
-            connection.setRequestProperty("accept", "application/json");
-            connection.setRequestProperty("accept-language", "en-US,en;q=0.9,az;q=0.8,hi;q=0.7");
-            connection.setRequestProperty("app-agent", "DESKTOP");
-            connection.setRequestProperty("cache-control", "no-cache");
-            connection.setRequestProperty("cookie", "ct_statsig_experiments={...}; _ga={...}; ..."); // add all cookie details
-            connection.setRequestProperty("expires", "0");
-            connection.setRequestProperty("newrelic", "eyJ2IjpbMCwxXS...");
-            connection.setRequestProperty("pragma", "no-cache");
-            connection.setRequestProperty("referer", "https://www.cleartrip.com/flights/results?adults=1&childs=0&infants=0&class=Economy&depart_date=04/10/2024&from=BLR&to=DEL&intl=n&origin=BLR%20-%20Bangalore,%20IN&destination=DEL%20-%20New%20Delhi,%20IN&sft=&sd=1727889414852&rnd_one=O&isCfw=false");
-            connection.setRequestProperty("sec-ch-ua", "\"Google Chrome\";v=\"129\", \"Not=A?Brand\";v=\"8\", \"Chromium\";v=\"129\"");
-            connection.setRequestProperty("sec-ch-ua-mobile", "?0");
-            connection.setRequestProperty("sec-ch-ua-platform", "\"Windows\"");
-            connection.setRequestProperty("sec-fetch-dest", "empty");
-            connection.setRequestProperty("sec-fetch-mode", "cors");
-            connection.setRequestProperty("sec-fetch-site", "same-origin");
-            connection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36");
+              connection.setRequestProperty("referer",url);
 
 
             int responseCode = connection.getResponseCode();
@@ -58,7 +44,7 @@ public class ClearTripConnection {
                 clearTripDataList =  controller.controller(cardsResponse);
 
             } else {
-                System.out.println("Failed to fetch data. Status code: " + responseCode);
+                System.out.println("Failed to fetch data of clear Trip. Status code: " + responseCode);
             }
 
         } catch (Exception e) {

@@ -24,8 +24,9 @@ public class CSVFormat {
         for (ClearTripData clearTripData : clearTripDataList){
             flightNumberClearTripPriceMap.put(clearTripData.getFlightNumber(),clearTripData.getClearTripPrice());
         }
-
-        System.out.println("FlightOperator   ;   "+"FlightNumber    ;   "+"paytmPrice    ;   " +"clearTripPrice");
+        System.out.println("___________________________________________________________________________________");
+        System.out.println("FlightOperator   |   "+"FlightNumber    |   "+"paytmPrice    |   " +"clearTripPrice");
+        System.out.println("___________________________________________________________________________________");
 
         for (Map.Entry<String,String> map : operatorFlightNumberMap.entrySet()){
             String operator = map.getValue();
@@ -39,7 +40,7 @@ public class CSVFormat {
                 clearTripPrice = Integer.toString(flightNumberClearTripPriceMap.get(flightNumber));
             }
 
-            System.out.println(operator+"   ;  "+flightNumber+"    ;  "+paytmPrice+"    ;  "+clearTripPrice);
+            System.out.println("|"+operator+"   |   "+flightNumber+"    |  "+paytmPrice+"    |   "+clearTripPrice+"|");
         }
     }
 }
